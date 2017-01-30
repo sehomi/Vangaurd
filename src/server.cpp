@@ -440,7 +440,7 @@ int main(int argc, char **argv) {
 	// Read autopilot parameters
 	msg_send_request_stream();
 	//msg_send_request_param();   
-	msg_send_set_interval();
+	//msg_send_set_interval();
 	// Main loop
     
 	char r_byte;

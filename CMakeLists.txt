@@ -142,8 +142,9 @@ include_directories(
 
 ## Declare a C++ executable
 add_executable(guidance_pack ${GUIDANCE_PACK_SRCS})
-add_executable(server src/server.cpp src/radio.cpp)
+##add_executable(server src/server.cpp src/radio.cpp)
 add_executable(navigation src/navigation.cpp)
+add_executable(pprz_server src/autmav_link.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -151,7 +152,8 @@ add_executable(navigation src/navigation.cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(guidance_pack ${catkin_LIBRARIES} ${OpenCV_LIBS} ${Boost_PROGRAM_OPTIONS_LIBRARY} ${Boost_REGEX_LIBRARY})
-target_link_libraries(server ${catkin_LIBRARIES})
+##target_link_libraries(server ${catkin_LIBRARIES})
+target_link_libraries(pprz_server ${catkin_LIBRARIES})
 target_link_libraries(navigation ${catkin_LIBRARIES} ${Boost_PROGRAM_OPTIONS_LIBRARY} ${Boost_REGEX_LIBRARY})
 #############
 ## Install ##
