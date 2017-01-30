@@ -1,0 +1,6 @@
+%YAML:1.0
+
+#Flight plan blocks:
+
+position_hold_1:
+   - { heading:Rate, horizontal_mode:ZeroVelo, stop_condition:Time, global_angle:0, rate:0, turns:0, time:60, delta_angle:0 }
