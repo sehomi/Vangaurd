@@ -101,7 +101,7 @@ void send_string(string);
 
 void server_receive_Callback(const Vangaurd::Server::ConstPtr& msg) {
 	armed = msg->armed;
-	server_ready = msg->ready;
+	server_ready = true;
 }
 
 void nav_receive_Callback(const Vangaurd::Navigation_Output::ConstPtr& msg) {
@@ -209,14 +209,14 @@ int main(int argc, char **argv) {
    
     ros::init(argc, argv, "guidance_pack");
     ros::NodeHandle n;
-    ros::Subscriber SERVER_sub = n.subscribe("server", 10, server_receive_Callback);
+    ros::Subscriber SERVER_sub = n.subscribe("/AUTMAV/server", 10, server_receive_Callback);
     ros::Subscriber NAV_sub = n.subscribe("/AUTMAV/Navigation", 10, nav_receive_Callback);
 	ros::Subscriber PID_sub = n.subscribe("/AUTMAV/pid_gains", 10, gains_receive_Callback);
 	ros::Subscriber COMMAND_FULL_sub = n.subscribe("/AUTMAV/guidance_command_full", 10, command_full_receive_Callback);
 	ros::Subscriber COMMAND_SEMI_sub = n.subscribe("/AUTMAV/guidance_command_semi", 10, command_semi_receive_Callback);
 	ros::Subscriber BN_FULL_sub = n.subscribe("/AUTMAV/block_number_full", 10, block_number_full_receive_Callback);
 	ros::Subscriber BN_SEMI_sub = n.subscribe("/AUTMAV/block_number_semi", 10, block_number_semi_receive_Callback);
-    ros::Publisher GUIDANCE_pub = n.advertise<Vangaurd::Guidance_Command>("guidance_pack", 10);
+    ros::Publisher GUIDANCE_pub = n.advertise<Vangaurd::Guidance_Command>("/AUTMAV/guidance_pack", 10);
 	STRING_pub = n.advertise<std_msgs::String>("/AUTMAV/string_msg", 10);
     Vangaurd::Guidance_Command guidance_command;
 
@@ -523,7 +523,7 @@ int main(int argc, char **argv) {
 
 	system("rosnode kill /optical_flow");
 	system("rosnode kill /navigation");
-	system("rosnode kill /server");
+	system("rosnode kill /pprz_server");
 
 	cout << "Mission Accomplished!" << endl;
 	send_string(string("Mission Accomplished!"));
@@ -767,7 +767,7 @@ void start_navigation(){
 }
 
 void start_server(){
-	system("./server");
+	system("./pprz_server");
 }
 
 void set_gains(){

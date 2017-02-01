@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <ros/ros.h>
+#include <vector>
 #include <std_msgs/Bool.h>
 #include <std_msgs/Float32MultiArray.h>
 #include <time.h>
@@ -29,6 +30,7 @@ class Navigation{
 		void imu_callback(const Vangaurd::Server::ConstPtr& msg);
 		void imu_of_fusion();
 		void of_pix_per_sec_2_m_per_sec();
+		void lowpass_filter(float *, float *);
 		
 		ros::NodeHandle *n;
 		ros::Subscriber OF_sub;
@@ -39,12 +41,14 @@ class Navigation{
 		float OF_dt = 0.0;
 		clock_t start, end;
 
+		vector <pair<float, float> > lowpass_log_data;
+
 		Vangaurd::Navigation_Output nav_out; 
 		Vangaurd::Server imu;
 		of_output of_out_pix_per_sec;
 		of_output of_out_m_per_sec;
 
-		float RX = 0.0, RY = 0.0, RZ = 0.0, H = 0.0, F = 0.5;
+		float RZ = 0.075, F = 900.0;
 		
 };
 

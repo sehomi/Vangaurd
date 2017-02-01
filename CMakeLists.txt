@@ -144,7 +144,7 @@ include_directories(
 add_executable(guidance_pack ${GUIDANCE_PACK_SRCS})
 ##add_executable(server src/server.cpp src/radio.cpp)
 add_executable(navigation src/navigation.cpp)
-add_executable(pprz_server src/autmav_link.cpp)
+add_executable(pprz_server src/pprz_server.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
